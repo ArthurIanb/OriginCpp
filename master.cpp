@@ -15,7 +15,7 @@ string reversed(string& s) {
     return out;
 }
 
-char toLowChar(char c) {
+char toLowChar(const char c) {
     int n = int(c);
     if (n >= int('A') && n <= int('Z'))
         n += 32;
@@ -23,7 +23,11 @@ char toLowChar(char c) {
     return out;
 }
 
-string lower(string& s) {
+bool isVowel(char c) {
+    return c == 'a' || c == 'e' || c == 'o' || c == 'u' || c == 'i';
+}
+
+string lower(const string& s) {
     string out = "";
     for (int i = 0; i < s.length(); i++) {
         out += toLowChar(s[i]);
@@ -258,12 +262,20 @@ bool isValidWalk(vector<char> walk) {
         return true;
     return false;
 }
-int add(int n1, int n2) 
-    { return n1 + n2; }
+
+
+
+std::string disemvowel(const std::string& str) {
+    string lowerStr = lower(str);
+    string out = "";
+    for (int i = 0; i < lowerStr.length(); i++) {
+        if (!isVowel(lowerStr[i]))
+            out += str[i];
+    }
+    return out;
+}
+
 int main() {
-    
-    int k = 1;
-    auto lam = [k](int n) {return k + n; };
-    cout << lam(21);
+    cout << disemvowel("Hello wolrd!");
 
 }
