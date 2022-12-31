@@ -5,10 +5,12 @@
 #include <numeric>
 #include <algorithm>
 
-
 using namespace std;
 
+// Good functions
+
 string reversed(string& s) {
+    // Return reversed string
     string out = "";
     for (int i = s.length(); i >= 0; i--)
         out += s[i];
@@ -16,6 +18,7 @@ string reversed(string& s) {
 }
 
 char toLowChar(const char c) {
+    // Make char 'c' lower
     int n = int(c);
     if (n >= int('A') && n <= int('Z'))
         n += 32;
@@ -24,14 +27,46 @@ char toLowChar(const char c) {
 }
 
 bool isVowel(char c) {
+    // Return true if c is vowel
     return c == 'a' || c == 'e' || c == 'o' || c == 'u' || c == 'i';
 }
 
+vector<string> split(const string& inpWord, const char sep) {
+    // Split string by space
+    string word = "";
+    vector<string> out;
+    for (int i = 0; i < inpWord.length(); i++) {
+        if (inpWord[i] != sep) {
+            word += string(1, inpWord[i]);;
+        }
+        else {
+            out.push_back(word);
+            word = "";
+        }
+    }
+    out.push_back(word);
+    return out;
+}
+
 string lower(const string& s) {
+    // Make string lower
     string out = "";
     for (int i = 0; i < s.length(); i++) {
         out += toLowChar(s[i]);
     }
+    return out;
+}
+
+vector<int> hms(float t) {
+    // t = time in hours (1.5 is 1 h and 30 mins)
+    // Return vector out, where out[0] hours, out[1] minutes and out[2] seconds
+    int h, m, sec;
+    h = (int)t;
+    m = (int)t * 60;
+    m %= 60;
+    sec = (int)t * 60 * 60;
+    sec %= 60;
+    vector<int> out = { h, m, sec };
     return out;
 }
 
@@ -48,6 +83,7 @@ bool metOneTime(char c, string& word) {
 }
 
 // Класс для адреса
+// Просто чистый код
 class Address {
 private:
     string street;  // Название улицы
@@ -94,26 +130,10 @@ public:
 
 // Kata 1
 //Stop gninnipS My sdroW!
-vector<string> split(const string& inpWord) {
-    string word = "";
-    int index = 0;
-    vector<string> out;
-    for (int i = 0; i < inpWord.length(); i++) {
-        if (inpWord[i] != ' ') {
-            word += string(1, inpWord[i]);;
-        }
-        else {
-            out.push_back(word);
-            word = "";
-        }
-    }
-    out.push_back(word);
-    return out;
-}
 
 string spinWords(string& str)
 {
-    vector<string> words = split(str);
+    vector<string> words = split(str, ' ');
     string out = "";
     for (auto i = words.begin(); i != words.end(); ++i) {
         if (i->length() >= 5) {
@@ -129,16 +149,6 @@ string spinWords(string& str)
     return out;
 }
 
-vector<int> hms(float t) {
-    int h, m, sec;
-    h = (int)t;
-    m = (int)t * 60;
-    m %= 60;
-    sec = (int)t * 60 * 60;
-    sec %= 60;
-    vector<int> out = {h, m, sec};
-    return out;
-}
 /*
 // Kata 2
 // Tortoise racing
@@ -263,9 +273,11 @@ bool isValidWalk(vector<char> walk) {
     return false;
 }
 
-
-
-std::string disemvowel(const std::string& str) {
+// Kata 10
+// Disemvowel Trolls
+// Used lower -> toLowChar
+// Used isVowel
+string disemvowel(const string& str) {
     string lowerStr = lower(str);
     string out = "";
     for (int i = 0; i < lowerStr.length(); i++) {
@@ -276,6 +288,5 @@ std::string disemvowel(const std::string& str) {
 }
 
 int main() {
-    cout << disemvowel("Hello wolrd!");
 
 }
